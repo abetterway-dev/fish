@@ -28,7 +28,7 @@ function fish_greeting
 
 
     # Checks for preferred programs
-    set wanted ranger nvim zed zoxide starship fzf
+    set wanted ranger nvim zed zoxide starship fzf aichat gh git sponge
     for prog in $wanted
         if command -sq $prog
             true
@@ -78,6 +78,9 @@ end
 # Activate Fish Enhancements
 if command -sq zoxide
     zoxide init fish | source
+    function cd --wraps=cd
+        z $argv
+    end
 end
 if command -sq starship
     starship init fish | source
