@@ -1,5 +1,9 @@
+# ------------------------------------------------------------------
+# configs
+# edit a config file with an editor
+# ------------------------------------------------------------------
 function configs --description 'Find config folders for installed programs'
-    set -l programs nvim fish starship git gh ranger node aichat awesome zed ghostty
+    set -l programs nvim fish starship git gh ranger node aichat awesome zed ghostty crush
     set -l program_configs
 
     for prog in $programs
@@ -33,12 +37,16 @@ function configs --description 'Find config folders for installed programs'
                     else
                         set -a program_configs "$prog ~/.config/zed"
                     end
+                    set -a program_configs "$prog ~/.config/zed/settings.json"
                 case ghostty
                     if test (uname) = Darwin
                         set -a program_configs "$prog ~/Library/Application Support/com.mitchellh.ghostty/config"
                     else
                         set -a program_configs "$prog ~/.config/ghostty/config"
                     end
+                case crush
+                    set -a program_configs "$prog ~/.config/crush"
+                case
             end
         end
     end

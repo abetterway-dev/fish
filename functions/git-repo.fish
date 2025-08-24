@@ -1,6 +1,10 @@
+# ------------------------------------------------------------------
+# git-repo <'private' | 'public'> <NEW_REPO_NAME> ['local']
+# Streamlines adding a new repo to github
+# ------------------------------------------------------------------
 function git-repo --description 'Create a GitHub repo from the current directory'
     if test (count $argv) -lt 2 -o (count $argv) -gt 3
-        echo "Usage: github-repo <public|private> <repo-name>"
+        echo "Usage: git-repo <'private' | 'public'> <NEW_REPO_NAME> ['local']"
         return 1
     end
 
@@ -71,48 +75,4 @@ function git-repo --description 'Create a GitHub repo from the current directory
         git push -u origin main
         echo "Repository updated with Initial commit"
     end
-end
-
-function git-ignore --description 'Generate .gitignore for current folder via aichat'
-
-    echo    "Generating a .gitignore file"
-    set -l target (pwd)
-
-    # Build a concise file-tree string (depth 1) to give the model context
-    set -l tree (string join '\n' (find . -maxdepth 1 -type f -o -type d | sort))
-
-    set -l prompt "
-You are a cross-platform .gitignore generator.
-Look at the following file/folder list:
-
-$tree
-
-Produce a concise .gitignore that ignores common OS/editor/build artefacts
-(macOS, Linux, Windows) plus anything obviously machine-specific
-from the list above.  Output ONLY the lines that belong in .gitignore.
-Always include:
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-*.tmp
-*.bak
-.env
-.dev.env
-.DS_Store
-"
-
-# write the AI response (without backticks) to a temp file
-aichat $prompt | string trim -r | sed '1s/^```//; $s/```$//' | sponge .gitignore
-echo "AI-generated rules written to .gitignore"
-end
-
-function git-readme --description 'Generate README.md for current folder'
-    if test (count $argv) -eq 0
-            echo "Usage: git-readme <text>"
-            return 1
-    end
-    set -l repo_name $argv[1]
-    echo "# $repo_name" > README.md
 end

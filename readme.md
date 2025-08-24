@@ -2,46 +2,86 @@
 
 A Fish shell configuration with custom functions, prompts, and development workflow tools.
 
-#### Development Workflow
-- **`dev.fish`** - Open development projects with specified programs
-  - Supports archive flag for archived projects
-  - Integrates with ranger file manager by default
-  - Handles both program and folder arguments
+---
+## New Commands
 
-- **`find-project.fish`** - Interactive project finder using fzf
-  - Searches `~/Developer` directory for projects
-  - Supports archive directory browsing
-  - Filters out hidden and documentation files
+### Navigation
+<details>
+<summary><code>find-project</code> – returns project folder path</summary>
 
-- **`runon.fish`** - Execute commands in project directories
-  - Run commands on selected projects via interactive picker
-  - Supports both `-from` (directory) and `-on` (project) flags
-  - Provides visual feedback for command execution
+**Dependencies**
+- `fzf`
+</details>
+<details>
+<summary><code>run</code> – runs cmds on different directory</summary>
 
-#### Shell Interface
-- **`fish_prompt.fish`** - Custom prompt function (fallback when Starship unavailable)
-  - Multi-line prompt with decorative elements
-  - Shows user, current directory, and timestamp
-  - Integrates vi-mode indicators, virtual environment, git status
-  - Displays background jobs and battery status
+**Dependencies**
+- `find-project` (fish function)
+</details>
+<details>
+<summary><code>configs</code> – opens configuration files/folders</summary>
 
-## Key Features
+**Dependencies**
+- `fzf`
 
-- **Smart Development Workflow**: Quickly navigate and work with projects in `~/Developer`
-- **System Information**: Displays OS, terminal, CPU, and memory info on startup
-- **Tool Integration**: Seamless integration with ranger, nvim, zed, zoxide, starship, and fzf
-- **Cross-Platform**: Supports macOS and Linux with appropriate fallbacks
-- **Visual Prompt**: Rich, informative prompt with git integration and status indicators
-- **Archive Support**: Special handling for archived development projects
+**Customization**
+Add or remove items in `$programs`, then toggle `$prog`.
 
-## Dependencies
+**Notes**
+- Uses `$editor` for files
+- Uses `$ide` for directories
+</details>
 
-The configuration checks for and integrates with these external tools:
-- `ranger` - File manager
-- `nvim` - Text editor
-- `zed` - IDE
-- `zoxide` - Smart directory jumper
-- `starship` - Cross-shell prompt
-- `fzf` - Fuzzy finder
+### Development
+<details>
+<summary><code>dev</code> – opens programming projects</summary>
 
-Missing tools are reported during shell startup with helpful warnings.
+**Dependencies**
+- `run` (fish function)
+
+**Notes**
+- Uses `$dev_dir` for default projects folder
+- Uses `$project_explorer` for default program to open projects
+</details>
+
+
+### Project Management
+
+### Package Management
+
+### Version Control
+<details>
+<summary><code>git-repo</code> – streamlines creating a new github repo</summary>
+
+**Dependencies**
+- `gh`
+- `git`
+- `git-readme` (fish function)
+- `git-ignore` (fish function)
+</details>
+<details>
+<summary><code>git-readme</code> – streamlines creating/updating a readme.md</summary>
+
+**Dependencies**
+- `aichat`
+- `sponge`
+</details>
+<details>
+<summary><code>git-ignore</code> – streamlines creating/updating a .gitignore</summary>
+
+**Dependencies**
+- `aichat`
+- `sponge`
+</details>
+
+### Automation & LLM support
+---
+## Flavors
+
+### workstation
+
+### vm
+
+### server
+
+### minimal

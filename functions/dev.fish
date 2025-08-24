@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------
-# dev <PROGRAM> [FOLDER] [ -a | --archive ]
+# dev [ <PROGRAM> | <FOLDER> ] [ <FOLDER> ] [ -a | --archive ]
 # open a devlopment project
 # ------------------------------------------------------------------
 function dev --description 'Open ~/Developer/<folder> with PROGRAM (default: ranger)'

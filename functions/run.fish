@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------
-# run <cmd> [cmds...] [ -on (project within $dev_dir), -from (project within directory) ]
+# run <CMD> [CMDS...] [ -on <FOLDER> &| -from <FOLDER> ]
 # Run commands on a different directory
 # ------------------------------------------------------------------
 function run --description 'Run commands on a folder via find-project'
