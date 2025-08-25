@@ -13,17 +13,19 @@ function fish_greeting
             set -g os  "macOS "(__sys "sw_vers -productVersion")
             set -g cpu (__sys "sysctl -n machdep.cpu.brand_string")
             set -g mem (math -s1 (__sys "sysctl -n hw.memsize") / 1024 / 1024 / 1024)" GB"
+            set -g cores (__sys "sysctl -n hw.ncpu")
         case Linux
             set -g os  (__sys "lsb_release -d | cut -f2")
             test -z "$os"; and set os (__sys "grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '\"'")
             set -g cpu (__sys "grep -m1 'model name' /proc/cpuinfo | cut -d: -f2-")
             set -g mem (math -s1 (__sys "grep -m1 MemTotal /proc/meminfo | awk '{print $2}'") / 1024 / 1024)" GB"
+            set -g cores (__sys "grep -c processor /proc/cpuinfo")
     end
 
     echo "[System]";
     set_color brblue; printf "%-8s" "OS:"; set_color normal; echo $os
     set_color brblue; printf "%-8s" "Term:"; set_color normal; echo $TERM_PROGRAM
-    set_color brblue; printf "%-8s" "CPU:"; set_color normal; echo $cpu
+    set_color brblue; printf "%-8s" "CPU:"; set_color normal; printf "%s (%s cores)\n" $cpu $cores
     set_color brblue; printf "%-8s" "Memory:"; set_color normal; echo $mem
 
 
@@ -82,6 +84,8 @@ if command -sq zoxide
         z $argv
     end
 end
-if command -sq starship
+
+set -l NERD_FONT_SAFE ghostty
+if command -sq starship && contains -- "$TERM_PROGRAM" $NERD_FONT_SAFE
     starship init fish | source
 end

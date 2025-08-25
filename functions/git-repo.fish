@@ -74,5 +74,6 @@ function git-repo --description 'Create a GitHub repo from the current directory
         echo "$url"
         git push -u origin main
         echo "Repository updated with Initial commit"
+        open "$url"
     end
 end
