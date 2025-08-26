@@ -28,10 +28,16 @@ function fish_greeting
     set_color brblue; printf "%-8s" "CPU:"; set_color normal; printf "%s (%s cores)\n" $cpu $cores
     set_color brblue; printf "%-8s" "Memory:"; set_color normal; echo $mem
 
+    set -g project_explorer ranger
+    set -gx EDITOR nvim #used in ranger/rifle
+    set -g editor nvim
+    set -g ide zed
+    set -g ai_cli aichat
+    set -g programs_with_configs nvim fish starship git gh ranger node aichat awesome zed ghostty crush
 
-    # Checks for preferred programs
-    set wanted ranger nvim zed zoxide starship fzf aichat gh git sponge
-    for prog in $wanted
+    # Checks for required programs
+    set -g required_programs $project_explorer $editor $ide $ai_cli fzf gh git sponge jq
+    for prog in $required_programs
         if command -sq $prog
             true
         else
@@ -54,11 +60,6 @@ function fish_greeting
             end
         end
     end
-
-    set -g project_explorer ranger
-    set -gx EDITOR nvim #used in ranger/rifle
-    set -g editor nvim
-    set -g ide zed
 end
 
 # Alias zeditor as zed

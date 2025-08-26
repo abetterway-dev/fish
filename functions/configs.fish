@@ -3,10 +3,9 @@
 # edit a config file with an editor
 # ------------------------------------------------------------------
 function configs --description 'Find config folders for installed programs'
-    set -l programs nvim fish starship git gh ranger node aichat awesome zed ghostty crush
     set -l program_configs
 
-    for prog in $programs
+    for prog in $programs_with_configs
         if command -sq $prog
             switch $prog
                 case nvim

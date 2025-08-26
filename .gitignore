@@ -33,3 +33,6 @@ desktop.ini
 *.log
 .cache/
 .history
+
+# ----------- ext-fish specfic ----------
+pref.json

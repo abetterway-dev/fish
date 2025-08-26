@@ -33,6 +33,6 @@ Always include:
 "
 
 # write the AI response (without backticks) to a temp file
-aichat $prompt | string trim -r | sed '1s/^```//; $s/```$//' | sponge .gitignore
+$ai_cli $prompt | string trim -r | sed '1s/^```//; $s/```$//' | sponge .gitignore
 echo "AI-generated rules written to .gitignore"
 end

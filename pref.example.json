@@ -1,0 +1,41 @@
+{
+  "editor": {
+    "default": "nvim",
+    "args": "",
+    "system-specfic": {}
+  },
+  "explorer": {
+    "default": "ranger",
+    "args": "",
+    "system-specfic": {}
+  },
+  "ide": {
+    "default": "zed",
+    "args": "",
+    "system-specfic": {}
+  },
+  "ai-cli": {
+    "default": "aichat",
+    "args": "",
+    "system-specfic": {}
+  },
+  "projects": "~/Devloper",
+  "required": {
+    "default": ["fzf", "gh", "git", "sponge", "jq"],
+    "system-specfic": {}
+  },
+  "configs": [
+    {
+      "cmd": "nvim",
+      "paths": ["~/.config/nim"],
+      "checks": {}
+    },
+    {
+      "cmd": "aichat",
+      "paths": ["~/.config/aichat"],
+      "system-specific": {
+        "Darwin": ["~/.config/aichat"]
+      }
+    }
+  ]
+}

@@ -63,15 +63,19 @@ Add or remove items in `$programs`, then toggle `$prog`.
 <summary><code>git-readme</code> – streamlines creating/updating a readme.md</summary>
 
 **Dependencies**
-- `aichat`
 - `sponge`
+
+**Notes**
+- Uses `$ai_cli` with cmd "<prompt>" for ai tasks
 </details>
 <details>
 <summary><code>git-ignore</code> – streamlines creating/updating a .gitignore</summary>
 
 **Dependencies**
-- `aichat`
 - `sponge`
+
+**Notes**
+- Uses `$ai_cli` with cmd "<prompt>" for ai tasks
 </details>
 
 ### Automation & LLM support
