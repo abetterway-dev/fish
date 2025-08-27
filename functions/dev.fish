@@ -1,13 +1,13 @@
 # ------------------------------------------------------------------
 # dev [ <PROGRAM> | <FOLDER> ] [ <FOLDER> ] [ -a | --archive ]
-# open a devlopment project
+# open a development project
 # ------------------------------------------------------------------
 function dev --description 'Open ~/Developer/<folder> with PROGRAM (default: ranger)'
     argparse -n dev 'a/archive' -- $argv
     set -l extra (set -q _flag_archive && echo -a)
     set argv $argv   # argparse keeps the remaining positional args
 
-    set -l program $project_explorer
+    set -l program $ide
     set -l base_dir $dev_dir
 
     if test (count $argv) -eq 0
@@ -25,10 +25,11 @@ function dev --description 'Open ~/Developer/<folder> with PROGRAM (default: ran
 
     set -l dir "$base_dir/$folder"
 
+    # run $program with kotlin/swift guard
     if test -n "$folder" -a -d "$dir"
         cd $dir
-        $program "$dir"
+        run $program -on "$dir" -g
     else
-        run $program $extra -from $base_dir
+        run $program $extra --from $base_dir -g
     end
 end

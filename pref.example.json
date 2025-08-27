@@ -2,27 +2,27 @@
   "editor": {
     "default": "nvim",
     "args": "",
-    "system-specfic": {}
+    "system-specific": {}
   },
   "explorer": {
     "default": "ranger",
     "args": "",
-    "system-specfic": {}
+    "system-specific": {}
   },
   "ide": {
     "default": "zed",
     "args": "",
-    "system-specfic": {}
+    "system-specific": {}
   },
   "ai-cli": {
     "default": "aichat",
     "args": "",
-    "system-specfic": {}
+    "system-specific": {}
   },
-  "projects": "~/Devloper",
+  "projects": "~/Developer",
   "required": {
     "default": ["fzf", "gh", "git", "sponge", "jq"],
-    "system-specfic": {}
+    "system-specific": {}
   },
   "configs": [
     {
