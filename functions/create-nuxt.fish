@@ -1,25 +1,22 @@
 function create-nuxt
-    function NuxtConfigtoJSON
+    function NuxtConfig->JSON
         tr -d '\n' < nuxt.config.ts \
         | rg -P 'defineNuxtConfig\s*\(\s*\K\{.*\}(?=\s*\)\s*$)' -o \
         | xargs -0 node -e 'console.log(JSON.stringify(eval("(" + process.argv[1] + ")"), null, 2))' > tmp.config.json
     end
 
-    function JSONtoNuxtConfig
+    function JSON->NuxtConfig
         node -e '
         const fs = require("fs");
         const target = process.argv[1];
         const repl   = fs.readFileSync("tmp.config.json","utf8");
 
-        // grab the replacement block from test.js
         const m2 = repl.match(/\{[\s\S]*\}/);
         if (!m2) throw new Error("No {...} in test.js");
         const newBlock = m2[0];
 
-        // read the target file
         let src = fs.readFileSync(target,"utf8");
 
-        // find the first {...} block
         let depth = 0, start = -1, end = -1;
         for (let i = 0; i < src.length; i++) {
           if (src[i] === "{") {
@@ -30,7 +27,6 @@ function create-nuxt
         }
         if (start === -1) throw new Error("No {...} in target file");
 
-        // splice and write back
         src = src.slice(0, start) + newBlock + src.slice(end);
         fs.writeFileSync(target, src);
         console.log("Updated Nuxt Config", target);
@@ -42,12 +38,12 @@ function create-nuxt
     # npx nuxi@latest init "$project_name"
     echo "debug"
     cd "$project_name"
-    NuxtConfigtoJSON
+    NuxtConfig->JSON
     # # use dasel to update tmp.config.json
     # dasel put -r json -f tmp.config.json 'css' -t json -v '["~/assets/css/main.css"]'
     # dasel put -r json -f tmp.config.json 'vite.plugins' -t json -v '["tailwindcss()"]'
     # printf 'import tailwindcss from "@tailwindcss/vite";\n' | cat - nuxt.config.ts | sponge nuxt.config.ts
-    # JSONtoNuxtConfig
+    # JSON->NuxtConfig
     # # properly install tailwindcss
     # # will need control logic for npm, pnpm, yarn, bun & deno
     # pnpm add -D tailwindcss @tailwindcss/vite
